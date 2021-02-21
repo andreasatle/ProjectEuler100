@@ -1,7 +1,16 @@
+// Package p001 contains solutions to Problem 1 in Project Euler.
+//
+// Project Euler Problem 1 - Multiples of 3 and 5
+//
+// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+//
+// Find the sum of all the multiples of 3 or 5 below 1000.
 package p001
 
 import "sync"
 
+// CountV1 returns the sum of all the multiples of a and b below n.
+// This is a non-optimized algorithm.
 func CountV1(a, b, n int) int {
 	sum := 0
 
@@ -13,6 +22,8 @@ func CountV1(a, b, n int) int {
 	return sum
 }
 
+// CountV2 returns the sum of all the multiples of a and b below n.
+// This is an optimized algorithm.
 func CountV2(a, b, n int) int {
 	sum := 0
 
@@ -30,6 +41,8 @@ func CountV2(a, b, n int) int {
 	return sum
 }
 
+// CountV3 returns the sum of all the multiples of a and b below n.
+// This is an non-optimized concurrent algorithm.
 func CountV3(a, b, n int) int {
 	sum := 0
 	var wg sync.WaitGroup
@@ -68,6 +81,8 @@ func CountV3(a, b, n int) int {
 		mu.Unlock()
 		wg.Done()
 	}(&sum)
+
 	wg.Wait()
+
 	return sum
 }

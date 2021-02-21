@@ -85,7 +85,9 @@ func CountV3(a, b, n int) int {
 		mu.Unlock()
 		wg.Done()
 	}(&sum)
+
 	wg.Wait()
+	
 	return sum
 }
 ```
