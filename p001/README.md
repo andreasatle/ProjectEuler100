@@ -89,7 +89,7 @@ func CountV3(a, b, n int) int {
 	return sum
 }
 ```
-## Test and Benchmark of answer
+## Test and Benchmarks of algorithms
 Once we have verified the correct solution with the Project Euler site, we can write some tests (using assert from testify):
 
 ```go
