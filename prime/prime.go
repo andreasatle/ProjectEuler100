@@ -3,6 +3,8 @@
 // Project Euler.
 package prime
 
+import "errors"
+
 // ComputePrimes returns a slice of primes up to maxPrime,
 // using the sieve of Eratosthenes.
 func ComputePrimes(maxPrime int) []int {
@@ -24,13 +26,14 @@ func ComputePrimes(maxPrime int) []int {
 
 // GeneratePrimes returns a prime generator function up to maxPrime,
 // using the sieve of Eratosthenes.
-func GeneratePrimes(maxPrime int) func() int {
+// The returned function will return primes in increasing order.
+func GeneratePrimes(maxPrime int) func() (int, error) {
 	noPrimeFlag := make([]bool, maxPrime+1)
 	nextPrime := 2
 
-	getNextPrime := func() int {
+	getNextPrime := func() (int, error) {
 		if nextPrime > maxPrime {
-			panic("maxPrime exceeded in prime.GeneratePrimes")
+			return 0, errors.New("maxPrime exceeded in prime.GeneratePrimes")
 		}
 		result := nextPrime
 		for i := nextPrime; i <= maxPrime; i += nextPrime {
@@ -40,7 +43,7 @@ func GeneratePrimes(maxPrime int) func() int {
 		for ; i <= maxPrime && noPrimeFlag[i]; i++ {
 		}
 		nextPrime = i
-		return result
+		return result, nil
 	}
 
 	return getNextPrime
